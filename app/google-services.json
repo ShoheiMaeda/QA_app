@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "814800824916",
+    "firebase_url": "https://qaapp-5ffb0.firebaseio.com",
+    "project_id": "qaapp-5ffb0",
+    "storage_bucket": "qaapp-5ffb0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814800824916:android:22ea8cfd2aa4c4f9",
+        "android_client_info": {
+          "package_name": "jp.maeda.shohei.qa_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "814800824916-javeba21037uo4m9r2k30230bioos441.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpj9tFJdrRvndg_JxY99A0-diYWp9oovo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
