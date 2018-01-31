@@ -163,6 +163,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
                 int id = item.getItemId();
 
+                // ログイン済みのユーザーを取得する
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
                 if (id == R.id.nav_hobby) {
                     mToolbar.setTitle("趣味");
                     mGenre = 1;
@@ -175,6 +178,15 @@ public class MainActivity extends AppCompatActivity {
                 } else if (id == R.id.nav_compter) {
                     mToolbar.setTitle("コンピューター");
                     mGenre = 4;
+                }
+
+                if (user != null) {
+
+                    if (id == R.id.nav_favorites) {
+                        mToolbar.setTitle("お気に入り一覧");
+                        mGenre = 5;
+                    }
+
                 }
 
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -221,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @@Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 

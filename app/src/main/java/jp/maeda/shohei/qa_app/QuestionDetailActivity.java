@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-public class QuestionDetailActivity extends AppCompatActivity {
+public class QuestionDetailActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ListView mListView;
     private Question mQuestion;
@@ -96,6 +97,7 @@ public class QuestionDetailActivity extends AppCompatActivity {
                     // ログインしていなければログイン画面に遷移させる
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
+
                 } else {
                     // Questionを渡して回答作成画面を起動する
                     // --- ここから ---
@@ -103,12 +105,26 @@ public class QuestionDetailActivity extends AppCompatActivity {
                     intent.putExtra("question", mQuestion);
                     startActivity(intent);
                     // --- ここまで ---
+
+                    Button button1 = (Button) findViewById(R.id.button1);
+                    button1.setOnClickListener(this);
+
+                    Button buttonlink = (Button) findViewById(R.id.buttonlink);
+                    buttonlink.setOnClickListener(this);
+
                 }
             }
         });
 
+
+
         DatabaseReference dataBaseReference = FirebaseDatabase.getInstance().getReference();
         mAnswerRef = dataBaseReference.child(Const.ContentsPATH).child(String.valueOf(mQuestion.getGenre())).child(mQuestion.getQuestionUid()).child(Const.AnswersPATH);
         mAnswerRef.addChildEventListener(mEventListener);
+    }
+
+    @Override
+    public void onClick (View v) {
+
     }
 }
