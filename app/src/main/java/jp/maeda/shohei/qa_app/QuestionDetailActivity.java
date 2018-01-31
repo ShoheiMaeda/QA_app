@@ -86,7 +86,8 @@ public class QuestionDetailActivity extends AppCompatActivity implements View.On
         mListView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,18 +106,21 @@ public class QuestionDetailActivity extends AppCompatActivity implements View.On
                     intent.putExtra("question", mQuestion);
                     startActivity(intent);
                     // --- ここまで ---
-
                     Button button1 = (Button) findViewById(R.id.button1);
                     button1.setOnClickListener(this);
 
                     Button buttonlink = (Button) findViewById(R.id.buttonlink);
                     buttonlink.setOnClickListener(this);
-
                 }
             }
         });
 
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            fab.setVisibility(View.GONE);
+        } else {
+            fab.setVisibility(View.VISIBLE);
+        }
 
         DatabaseReference dataBaseReference = FirebaseDatabase.getInstance().getReference();
         mAnswerRef = dataBaseReference.child(Const.ContentsPATH).child(String.valueOf(mQuestion.getGenre())).child(mQuestion.getQuestionUid()).child(Const.AnswersPATH);
