@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-public class QuestionDetailActivity extends AppCompatActivity implements View.OnClickListener{
+public class QuestionDetailActivity extends AppCompatActivity{
 
     private ListView mListView;
     private Question mQuestion;
@@ -107,10 +107,14 @@ public class QuestionDetailActivity extends AppCompatActivity implements View.On
                     startActivity(intent);
                     // --- ここまで ---
                     Button button1 = (Button) findViewById(R.id.button1);
-                    button1.setOnClickListener(this);
+                    button1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Button button2 = (Button) findViewById(R.id.button2);
+                            button2.setOnClickListener(this);
+                        }
 
-                    Button buttonlink = (Button) findViewById(R.id.buttonlink);
-                    buttonlink.setOnClickListener(this);
+                    });
                 }
             }
         });
@@ -127,8 +131,4 @@ public class QuestionDetailActivity extends AppCompatActivity implements View.On
         mAnswerRef.addChildEventListener(mEventListener);
     }
 
-    @Override
-    public void onClick (View v) {
-
-    }
 }
