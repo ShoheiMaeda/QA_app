@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Button;
+import android.graphics.Color;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -86,6 +87,12 @@ public class QuestionDetailActivity extends AppCompatActivity{
         mListView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
 
+        final Button button1 = (Button) findViewById(R.id.button1);
+        final Button button2 = (Button) findViewById(R.id.button2);
+
+        button1.setVisibility(View.VISIBLE);
+        button2.setVisibility(View.GONE);
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -106,12 +113,22 @@ public class QuestionDetailActivity extends AppCompatActivity{
                     intent.putExtra("question", mQuestion);
                     startActivity(intent);
                     // --- ここまで ---
-                    Button button1 = (Button) findViewById(R.id.button1);
+
                     button1.setOnClickListener(new View.OnClickListener() {
+
                         @Override
                         public void onClick(View v) {
-                            Button button2 = (Button) findViewById(R.id.button2);
-                            button2.setOnClickListener(this);
+
+                            button1.setVisibility(View.GONE);
+                            button2.setVisibility(View.VISIBLE);
+
+                            button2.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    button1.setVisibility(View.VISIBLE);
+                                    button2.setVisibility(View.GONE);
+                                }
+                            });
                         }
 
                     });
