@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Button;
+
 
 public class QuestionDetailListAdapter extends BaseAdapter {
     private final static int TYPE_QUESTION = 0;
@@ -87,6 +89,26 @@ public class QuestionDetailListAdapter extends BaseAdapter {
 
             TextView nameTextView = (TextView) convertView.findViewById(R.id.nameTextView);
             nameTextView.setText(name);
+
+            final Button button1 = (Button) findViewById(R.id.button1);
+            final Button button2 = (Button) findViewById(R.id.button2);
+            button1.setVisibility(View.VISIBLE);
+            button2.setVisibility(View.GONE);
+
+            button1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    button1.setVisibility(View.GONE);
+                    button2.setVisibility(View.VISIBLE);
+                    button2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            button1.setVisibility(View.VISIBLE);
+                            button2.setVisibility(View.GONE);
+                        }
+                    });
+                }
+            });
         }
 
         return convertView;

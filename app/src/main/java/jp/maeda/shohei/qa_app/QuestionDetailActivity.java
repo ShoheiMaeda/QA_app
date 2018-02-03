@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-public class QuestionDetailActivity extends AppCompatActivity{
+public class QuestionDetailActivity extends AppCompatActivity {
 
     private ListView mListView;
     private Question mQuestion;
@@ -87,14 +87,7 @@ public class QuestionDetailActivity extends AppCompatActivity{
         mListView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
 
-        final Button button1 = (Button) findViewById(R.id.button1);
-        final Button button2 = (Button) findViewById(R.id.button2);
-
-        button1.setVisibility(View.VISIBLE);
-        button2.setVisibility(View.GONE);
-
-
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,7 +98,6 @@ public class QuestionDetailActivity extends AppCompatActivity{
                     // ログインしていなければログイン画面に遷移させる
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
-
                 } else {
                     // Questionを渡して回答作成画面を起動する
                     // --- ここから ---
@@ -113,39 +105,13 @@ public class QuestionDetailActivity extends AppCompatActivity{
                     intent.putExtra("question", mQuestion);
                     startActivity(intent);
                     // --- ここまで ---
-
-                    button1.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View v) {
-
-                            button1.setVisibility(View.GONE);
-                            button2.setVisibility(View.VISIBLE);
-
-                            button2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    button1.setVisibility(View.VISIBLE);
-                                    button2.setVisibility(View.GONE);
-                                }
-                            });
-                        }
-
-                    });
                 }
             }
         });
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null) {
-            fab.setVisibility(View.GONE);
-        } else {
-            fab.setVisibility(View.VISIBLE);
-        }
-
         DatabaseReference dataBaseReference = FirebaseDatabase.getInstance().getReference();
         mAnswerRef = dataBaseReference.child(Const.ContentsPATH).child(String.valueOf(mQuestion.getGenre())).child(mQuestion.getQuestionUid()).child(Const.AnswersPATH);
         mAnswerRef.addChildEventListener(mEventListener);
-    }
 
+    }
 }
