@@ -30,6 +30,8 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static ArrayList<String> mFavoriteList;
+
     private Toolbar mToolbar;
     private int mGenre = 0;
 
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
             String name = (String) map.get("name");
             String uid = (String) map.get("uid");
             String imageString = (String) map.get("image");
+
+
             byte[] bytes;
             if (imageString != null) {
                 bytes = Base64.decode(imageString, Base64.DEFAULT);
@@ -64,12 +68,31 @@ public class MainActivity extends AppCompatActivity {
                     String answerBody = (String) temp.get("body");
                     String answerName = (String) temp.get("name");
                     String answerUid = (String) temp.get("uid");
+
                     Answer answer = new Answer(answerBody, answerName, answerUid, (String) key);
                     answerArrayList.add(answer);
                 }
             }
 
-            Question question = new Question(title, body, name, uid, dataSnapshot.getKey(), mGenre, bytes, answerArrayList);
+            ArrayList<String> stringArrayList = new ArrayList<String>();
+            HashMap stringMap = (HashMap) map.get("string");
+            if (stringMap != null) {
+                for (Object key : stringMap.keySet()) {
+                    HashMap temp = (HashMap) answerMap.get((String) key);
+                    String favUid = (String) temp.get("uid");
+
+                    String fav = new String (favUid);
+                    stringArrayList.add(fav);
+
+                    if (fav == null){
+                        Boolean favorite = false;
+                    }else{
+                        Boolean favorite = true;
+                    }
+                }
+            }
+
+            Question question = new Question(title, body, name, uid, dataSnapshot.getKey(), favorite, mGenre, bytes, answerArrayList);
             mQuestionArrayList.add(question);
             mAdapter.notifyDataSetChanged();
         }

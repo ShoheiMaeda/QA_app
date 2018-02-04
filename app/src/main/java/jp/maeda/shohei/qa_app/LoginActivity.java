@@ -111,6 +111,15 @@ public class LoginActivity extends AppCompatActivity {
                     // プログレスダイアログを非表示にする
                     mProgress.dismiss();
 
+                    mDataBaseReference = FirebaseDatabase.getInstance().getReference();
+
+                    // FirebaseAuthのオブジェクトを取得する
+                    mAuth = FirebaseAuth.getInstance();
+
+
+
+
+
                     // Activityを閉じる
                     finish();
 
