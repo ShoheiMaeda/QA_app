@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -110,15 +111,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     // プログレスダイアログを非表示にする
                     mProgress.dismiss();
-
-                    mDataBaseReference = FirebaseDatabase.getInstance().getReference();
-
-                    // FirebaseAuthのオブジェクトを取得する
-                    mAuth = FirebaseAuth.getInstance();
-
-
-
-
 
                     // Activityを閉じる
                     finish();

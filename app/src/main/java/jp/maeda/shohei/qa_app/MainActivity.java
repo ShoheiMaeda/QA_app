@@ -30,7 +30,7 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static ArrayList<String> mFavoriteList;
+    public static ArrayList<String> mFavorite;
 
     private Toolbar mToolbar;
     private int mGenre = 0;
@@ -74,23 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            ArrayList<String> stringArrayList = new ArrayList<String>();
-            HashMap stringMap = (HashMap) map.get("string");
-            if (stringMap != null) {
-                for (Object key : stringMap.keySet()) {
-                    HashMap temp = (HashMap) answerMap.get((String) key);
-                    String favUid = (String) temp.get("uid");
-
-                    String fav = new String (favUid);
-                    stringArrayList.add(fav);
-
-                    if (fav == null){
-                        Boolean favorite = false;
-                    }else{
-                        Boolean favorite = true;
-                    }
-                }
-            }
 
             Question question = new Question(title, body, name, uid, dataSnapshot.getKey(), favorite, mGenre, bytes, answerArrayList);
             mQuestionArrayList.add(question);

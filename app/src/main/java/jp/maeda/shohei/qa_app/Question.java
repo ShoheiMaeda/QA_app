@@ -58,8 +58,4 @@ public class Question implements Serializable {
         mAnswerArrayList = answers;
     }
 
-    setFavorite(){
-
-    }
-
 }

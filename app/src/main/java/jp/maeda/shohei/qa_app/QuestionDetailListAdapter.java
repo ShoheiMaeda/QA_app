@@ -11,6 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+
 
 public class QuestionDetailListAdapter extends BaseAdapter {
     private final static int TYPE_QUESTION = 0;
@@ -19,7 +25,7 @@ public class QuestionDetailListAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater = null;
     private Question mQustion;
 
-    public QuestionDetailListAdapter(Context context, Question question) {
+    public QuestionDetailListAdapter(Context context, ArrayList<Question> question) {
         mLayoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mQustion = question;
     }
@@ -56,6 +62,9 @@ public class QuestionDetailListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        FirebaseAuth mAuth;
+        DatabaseReference mDataBaseReference;
+
         if (getItemViewType(position) == TYPE_QUESTION) {
             if (convertView == null) {
                 convertView = mLayoutInflater.inflate(R.layout.list_question_detail, parent, false);
@@ -68,6 +77,17 @@ public class QuestionDetailListAdapter extends BaseAdapter {
 
             TextView nameTextView = (TextView) convertView.findViewById(R.id.nameTextView);
             nameTextView.setText(name);
+
+            Button favorite1 = convertView.findViewById(R.id.button1);
+            Button favorite2 = convertView.findViewById(R.id.button2);
+
+            mDataBaseReference = FirebaseDatabase.getInstance().getReference();
+
+            // FirebaseAuthのオブジェクトを取得する
+            mAuth = FirebaseAuth.getInstance();
+
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("favorites");
+            reference.addChildEventListener(listener);
 
             byte[] bytes = mQustion.getImageBytes();
             if (bytes.length != 0) {
